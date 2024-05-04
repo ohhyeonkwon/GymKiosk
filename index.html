@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym kiosk</title>
+  <link rel="stylesheet" href="styles.css"> <!-- CSS 파일 연결 -->
+</head>
+    <body style="background-image: url('health.jpg'); background-size: cover;">
+    <header>
+    <h1 style="font-size: 40px;"><i><span style="color: red;">Welcome to</span> Gym Cafe</i></h1>
+    <section>
+      <div id="clock"></div>
+    </section>
+    </header>
+    <?php
+        $dbcon = $dbcon = mysqli_connect('localhost', 'root', '', 'kiosk');
+        mysqli_select_db($dbcon, 'kiosk');
+        $query = "select * from products";
+        $result = mysqli_query($dbcon, $query);
+        $row = mysqli_fetch_array($result);
+        mysqli_close($dbcon);
+    ?>
+    
+  <main>
+    <form action='kiosk_process.php' method='post'>
+    <div style="display: flex; justify-content: space-around;">
+    <table style="width: 130%;" align="center">  
+    <tr>
+        <td style="text-align: center;">
+        <img src='./daypass.webp' style="width: 50%;" class="hover-zoom" onclick="selectImage('헬스장 일일권', 20000)" name='daypass'>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;"><strong>헬스장 일일권</strong></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">20,000원</td>
+    </tr>
+    </table>
+
+    <table style="width: 130%;" align="center">  
+    <tr>
+        <td style="text-align: center;">
+            <img src='./protein.webp' style="width: 50%;" class="hover-zoom" onclick="selectImage('프로틴 (단백질 음료)', 3000)" name='protein'>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;"><strong>프로틴 (단백질 음료)</strong></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">3,000원</td>
+    </tr>
+    </table>
+
+    <table style="width: 130%;" align="center">  
+    <tr>
+        <td style="text-align: center;">
+            <img src='./booster.webp' style="width: 50%;" class="hover-zoom" onclick="selectImage('부스터 (카페인)', 3000)" name='booster'>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align: center;"><strong>부스터 (카페인)</strong></td>
+    </tr>
+    <tr>
+        <td style="text-align: center;">3,000원</td>
+    </tr>
+    </table>
+    </div>
+
+  </main>
+  <!-- 주문 내역 부분 -->
+    <footer class="footer">
+    <div class="order-box">
+        <h2>주문내역</h2>
+        <ul class="order-list">
+        <!-- 주문 내역 아이템이 추가될 곳 -->
+        </ul>
+    </div>
+    <div style="background-color: #ddd; padding: 10px; text-align: right;">
+        <span class="total-price"></span>
+        <button type="submit" onclick = 'openWin()' value = 'open'>결제하기</button>
+        <input type='reset' value='전체삭제'>
+    </div>
+    </footer>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script> //시계
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds}`;
+      document.getElementById('clock').innerText = timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+
+    // 상품 선택 함수
+    function selectImage(productName, productPrice) {
+    // 일일권은 1개만 주문 가능하도록 조건 추가
+    if (productName === '헬스장 일일권') {
+        const existingDayPass = document.querySelector('.order-list').querySelector('.item-name');
+        if (existingDayPass && existingDayPass.textContent === '헬스장 일일권') {
+            swal.fire({
+                    icon: 'warning',
+                    title: '일일권은 하나만<br>구매가능합니다.'
+                });
+            return;
+    }
+  }
+    const orderList = document.querySelector('.order-list');
+    let existingItem = null;
+
+    // 주문 리스트에서 동일한 상품 찾기
+    orderList.querySelectorAll('.order-item').forEach(item => {
+        if (item.querySelector('.item-name').textContent === productName) {
+        existingItem = item;
+        }
+    });
+
+    if (existingItem) {
+        // 이미 있는 상품이면 수량 업데이트
+        updateQuantity(existingItem, 1);
+    } else {
+        // 새 상품 추가
+        const newItem = document.createElement('li');
+        newItem.classList.add('order-item');
+        newItem.innerHTML = `
+        <span class="item-name">${productName}</span>
+        <span class="item-price">${productPrice}원</span>
+        <span class="item-quantity">1</span>
+        <button class="quantity-btn minus-btn">-</button>
+        <button class="quantity-btn plus-btn">+</button>
+        `;
+        orderList.appendChild(newItem);
+        updateTotalPrice();
+
+        // 수량 조절 버튼
+        addQuantityEventListeners(newItem);
+        }
+    }
+    function updateQuantity(item, change) {
+        const itemName = item.querySelector('.item-name').textContent;
+        if (itemName === '헬스장 일일권') {
+            return;
+        }
+
+        const quantityElement = item.querySelector('.item-quantity');
+        let quantity = parseInt(quantityElement.textContent) + change;
+        quantity = quantity < 1 ? 1 : quantity;
+        // 수량이 0 이하가 되지 않도록 함
+        quantityElement.textContent = quantity;
+        updateTotalPrice(); // 총 가격 업데이트
+    }
+
+    function addQuantityEventListeners(item) {
+        item.querySelector('.minus-btn').addEventListener('click', function() {
+            updateQuantity(item, -1);
+        });
+        item.querySelector('.plus-btn').addEventListener('click', function() {
+            updateQuantity(item, 1);
+        });
+    }
+
+    function updateTotalPrice() {
+        let totalPrice = 0;
+        document.querySelectorAll('.order-item').forEach(item => {
+        const price = parseInt(item.querySelector('.item-price').textContent.replace('원', ''));
+        const quantity = parseInt(item.querySelector('.item-quantity').textContent);
+        totalPrice += price * quantity;
+     });
+
+    document.querySelector('.total-price').textContent = `총 가격: ${totalPrice}원`;
+            }
+    // 수량 업데이트 후 총 가격 다시 계산
+
+    document.querySelector('form').addEventListener('submit', function(event) {
+    const totalPrice = parseInt(document.querySelector('.total-price').textContent.replace('총 가격: ', '').replace('원', ''));
+    
+    //주문하기 알림
+    if (totalPrice > 0) {
+        swal.fire({
+                    icon: 'success',
+                    title: '주문이 완료되었습니다.'
+                });
+            return;
+    } else {
+        // 총 가격이 0원이면 경고 메시지 출력하고 제출 방지
+        swal.fire({
+                    icon: 'warning',
+                    title: '주문이 내역이 없습니다.'
+                });
+            return;
+    }
+    });
+
+        // 전체 삭제 기능
+    document.querySelector('input[type="reset"]').addEventListener('click', function() {
+    document.querySelector('.order-list').innerHTML = '';
+        updateTotalPrice(); // 총 가격 업데이트
+    });
+        </script>
+    </body>
+
+</html>

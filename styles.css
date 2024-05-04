@@ -1,0 +1,103 @@
+     
+    body {
+        font-family: Arial, sans-serif;
+        text-align: left;
+        margin: 0;
+        padding: 0;
+        background-image: url('health.jpg');
+        background-size: cover;
+        position: relative;
+    }
+
+    body::before {
+        content: '';
+        position: fixed; /* 변경됨 */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.5);
+        z-index: -1;
+        height: 100%; /* 추가됨 */
+    }
+
+    header {
+        background-color: rgba(16, 3, 58, 0.8); 
+        color: #fff;
+        padding: 1%; /* 패딩을 백분율로 변경 */
+        text-align: center;
+    }
+    #clock {
+        font-size: 2vw; /* 폰트 크기를 뷰포트 너비에 상대적으로 조정 */
+        padding: 1%; /* 패딩을 백분율로 변경 */
+        border: 5px solid white;
+        border-radius: 100px;
+        display: inline-block;
+        text-align: right;
+    }
+    nav {
+        background-color: #19074d;
+        color: #fff;
+        padding: 1%; /* 패딩을 백분율로 변경 */
+        text-align: center;
+    }
+
+    nav a {
+        color: #d3d021;
+        text-decoration: none;
+        margin: 1%; /* 마진을 백분율로 변경 */
+        transition: font-size 0.5s;
+        font-size: 1.5vw; /* 폰트 크기를 뷰포트 너비에 상대적으로 조정 */
+    }
+
+    nav a:hover {
+        font-size: 2vw; /* 호버 시 폰트 크기 변경 */ 
+    }
+  
+    main {
+        padding: 1%; /* 패딩을 백분율로 변경 */
+    }
+
+    section {
+        margin-bottom: 1%; /* 마진을 백분율로 변경 */
+    }
+    .hover-zoom {
+        transition: transform 0.3s ease; /* 부드러운 전환 효과 */
+    }
+
+    .hover-zoom:hover {
+        transform: scale(1.05); /* 이미지가 5% 커짐 */
+    }
+
+    .order-list {
+        list-style-type: none;
+        padding: 0;
+    }
+    .order-item {
+        margin: 5px 0;
+    }
+    /* 주문 내역 박스 스타일 */
+    .order-box {
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    /* 주문내역과 결제 버튼 영역 배경색 추가 */
+    .footer {
+        background-color: rgba(255, 255, 255, 0.8);
+    /* 기존 스타일 유지 */
+    }
+
+    /* 수량 조절 버튼 스타일 */
+    .quantity-btn {
+        background-color: #ddd;
+        border: none;
+        padding: 5px 10px;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+    .quantity-btn:hover {
+        background-color: #ccc;
+    }
