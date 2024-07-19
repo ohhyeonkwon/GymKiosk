@@ -1,4 +1,4 @@
-<img width=100% src="https://github.com/user-attachments/assets/a35ac87c-03b0-45e8-bdfb-6a1f51807602">
+<img width=100% src="https://github.com/user-attachments/assets/cf197f2c-d005-4241-a566-36c21c51d8dd">
 
 # GYM KIOSK🔥
 
