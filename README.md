@@ -43,11 +43,18 @@
 ### ✨ 주요 기능 및 이미지
 
 #### 📌 메인 페이지<br/>
-<img width=100% src="https://github.com/user-attachments/assets/76f130f2-6861-4a88-8a10-e32f7417cb0f"><br/><br/>
-- **상품 주문:** 상품을 클릭하면 주문내역에 상품이 추가<br/>
+<img width=100% src="https://github.com/user-attachments/assets/d80a21d7-f6ac-43db-bf29-5fa01c380e25"><br/><br/>
+
+#### 📌 상품 주문<br/>
+<img width=100% src="https://github.com/user-attachments/assets/c46d88c3-00d9-464e-b3a4-1e6bf93604d9"><br/><br/>
+- **주문내역 추가:** 상품을 클릭하면 주문내역에 상품이 추가<br/>
 - **주량 조절:** 상품 이미지를 클릭하거나 주문내역에서 상품명 옆의 +, -버튼을 누르면 수량 조절 가능
 - **전체삭제:** 결제하기 옆의 버튼을 클릭하면 주문내역 내의 상품이 모두 삭제
 - **총 가격:** 주문내역에 있는 상품 가격의 합이 총 가격에 출력  <br/><br/><br/>
+
+<img width=100% src="https://github.com/user-attachments/assets/7de47d5f-71f3-45df-bb0b-06c0a76286c8"><br/><br/>
+- **일일권 개수 제한:** 일일권은 하루 이용권을 뜻하며, 수량이 추가되는 것이 의미가 없기에 한 개만 구매할 수 있도록 제한
+
 
 
 
