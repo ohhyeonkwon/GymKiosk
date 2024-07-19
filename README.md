@@ -28,17 +28,6 @@
 - **Tools:** &nbsp;&nbsp;![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 <br/><br/>
 
-### 🛠️ 기능에 대한 사용 기술
-- Flask 서버와 React 클라이언트를 사용하여 구현
-- Gemini API를 사용하여 LLM모델 선택 후 LangChain 기술을 사용하여 체인으로 연결된 응답 생성과정 구현
-- Pandas를 통해 관광정보 API의 csv파일을 전처리
-- RAG기술을 통해 전처리된 데이터를 학습시켜 정확한 답변 생성
-- 답변을 서버에서 클라이언트로 전달하여 여행지 추천 화면 구현
-- 답변 데이터의  위도,경도값을 통해 클라이언트에서 KakaoMap API를 통한 위치정보 구현
-- MySQL 를 사용하였고 외래키를 통한 연결테이블 구현
-- 회원 기능과 여행지 스크랩 기능을 DB를 통해 구현
-- 자연스러운 UI 구현 및 다크모드 구현<br/><br/><br/>
-
 
 ### ✨ 주요 기능 및 이미지
 
